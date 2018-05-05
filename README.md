@@ -1,3 +1,5 @@
+# My slight modification of the very useful script by Nelson Liu of University of Washignton
+
 # Flattening the Gigaword Datset
 
 The scripts in this repository dump the text of the Gigaword dataset into a single file, for use 
@@ -12,13 +14,6 @@ more information about how the code in this repo works.
 - [Usage](#usage)
 
 ## Installation
-
-To run this code, you must have **GNU Parallel**. This can be installed on Ubuntu with:
-
-```
-sudo apt-get install parallel
-```
-
 This project was developed in Python 3.6, but should work with Python 3.x and 2.x.
 Please raise an issue if you find that this is not the case.
 
@@ -53,24 +48,20 @@ needed to run the code in this package.
     
 ## Usage
 
-[`flatten_one_gigaword.py`](./flatten_one_gigaword.py) takes in the path of a Gigaword data file
-and an output directory to write a flattened version to. The bash script at 
-[`flatten_all_gigaword.sh`](./flatten_all_gigaword.sh) is a thin wrapper that feeds the paths of all the
-Gigaword data files to [`flatten_one_gigaword.py`](./flatten_one_gigaword.py) and combines the final output.
+[`flatten_gigaword.py`](./flatten_gigaword.py) takes in one positional argument and two options:
 
-[`flatten_all_gigaword.sh`](./flatten_all_gigaword.sh) takes in three positional arguments:
+1.  Postional: The path to the Gigaword directory, with all of the data files unzipped.
 
-1.  The path to the Gigaword directory, with all of the data files unzipped.
+2.  `--output-dir`: A directory to write the flattened files to and the final combined output. 
+    The default is the current working directory.
 
-2.  A directory to write the flattened files to and the final combined output. 
-    It will be created if it does not exist.
-
-3. The number of files to process at once.
-
+3. `--num-parallel`: The number of files to process at once.
+   The default is 12 files at once.
+   
 For example, you can run:
 
 ```
-./flatten_all_gigaword.sh ./data/gigaword_eng_5/ tmp/ 24
+./flatten_gigaword.py ./data/gigaword_eng_5/ --output-dir tmp/ --num-parallel 24
 ```
 
 to extract data (in parallel, processing 24 files at a time) from the Gigaword corpus 
